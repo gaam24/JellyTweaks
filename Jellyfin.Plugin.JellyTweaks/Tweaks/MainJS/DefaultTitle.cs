@@ -16,7 +16,7 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks.MainJS
     {
         private readonly ILogger<Tweak> _logger;
 
-        private static string name = "DefaultLibraryPageSize";
+        private static string name = "DefaultTitle";
         private static Collection<Searching> searching = new Collection<Searching>()
         {
             new Searching(Paths.MainJS!, "document.title=e||\"", "\"}"),
