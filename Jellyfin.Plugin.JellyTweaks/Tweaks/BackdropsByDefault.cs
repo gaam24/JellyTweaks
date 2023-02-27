@@ -5,7 +5,7 @@ using Jellyfin.Plugin.JellyTweaks.Data;
 using Jellyfin.Plugin.JellyTweaks.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace Jellyfin.Plugin.JellyTweaks.Tweaks.MainJS
+namespace Jellyfin.Plugin.JellyTweaks.Tweaks
 {
     public class BackdropsByDefault : Tweak
     {
@@ -24,7 +24,7 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks.MainJS
 
         public override async Task Execute(PluginConfiguration configuration)
         {
-            string value = configuration.EnableBackdropsByDefault ? "_" : "P";
+            var value = configuration.EnableBackdropsByDefault ? "_" : "P";
             await FileUtils.ChangeInLine(_logger, this, value).ConfigureAwait(false);
         }
     }
