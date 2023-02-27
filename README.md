@@ -1,0 +1,2 @@
+# JellyTweaks
+Tweaks for Jellyfin.
