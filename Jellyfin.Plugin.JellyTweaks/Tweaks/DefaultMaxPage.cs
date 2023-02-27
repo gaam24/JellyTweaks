@@ -7,7 +7,7 @@ using Jellyfin.Plugin.JellyTweaks.Utils;
 using MediaBrowser.Model.Search;
 using Microsoft.Extensions.Logging;
 
-namespace Jellyfin.Plugin.JellyTweaks.Tweaks.MainJS
+namespace Jellyfin.Plugin.JellyTweaks.Tweaks
 {
     public class DefaultMaxPage : Tweak
     {

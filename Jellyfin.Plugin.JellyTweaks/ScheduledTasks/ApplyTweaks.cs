@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Jellyfin.Plugin.JellyTweaks.Configuration;
 using Jellyfin.Plugin.JellyTweaks.Data;
-using Jellyfin.Plugin.JellyTweaks.Tweaks.MainJS;
+using Jellyfin.Plugin.JellyTweaks.Tweaks;
 using MediaBrowser.Model.Globalization;
 using MediaBrowser.Model.Tasks;
 using Microsoft.Extensions.Logging;

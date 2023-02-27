@@ -10,7 +10,7 @@ using Jellyfin.Plugin.JellyTweaks.Data;
 using Jellyfin.Plugin.JellyTweaks.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace Jellyfin.Plugin.JellyTweaks.Tweaks.MainJS
+namespace Jellyfin.Plugin.JellyTweaks.Tweaks
 {
     public class DefaultTitle : Tweak
     {
