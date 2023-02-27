@@ -1,0 +1,20 @@
+[
+    {
+        "name": "JellyTweaks",
+        "guid": "dfee3828-01df-49df-85b1-5c2b75e5ea1a",
+        "description": "Tweaks which may be useful",
+        "overview": "Tweaks for Jellyfin",
+        "owner": "gam24",
+        "category": "General",
+        "versions": [
+            {
+                "checksum": "9a5e782e6b46bcca4ea2e6c88123d8a7",
+                "changelog": "Initial release",
+                "targetAbi": "10.8.9.0",
+                "sourceUrl": "https://github.com/gaam24/JellyTweaks/releases/download/1.0.0.0/Jellyfin.Plugin.JellyTweaks.7z",
+                "timestamp": "2022-02-28 00:15:25",
+                "version": "1.0.0.0"
+            }
+        ]
+    }
+]
