@@ -10,6 +10,11 @@
             <div class="content-primary">
                 <form id="JellyTweaksForm">
 
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="DefaultTitle">Default title</label>
+                        <input id="DefaultTitle" name="DefaultTitle" type="text" is="emby-input" />
+                    </div>
+
                     <div class="checkboxContainer checkboxContainer-withDescription">
                         <label class="emby-checkbox-label">
                             <input id="EnableBackdropsByDefault" name="EnableBackdropsByDefault" type="checkbox" is="emby-checkbox" />
@@ -20,11 +25,6 @@
                     <div class="inputContainer">
                         <label class="inputLabel inputLabelUnfocused" for="DefaultLibraryPageSize">Default page size</label>
                         <input id="DefaultLibraryPageSize" name="DefaultLibraryPageSize" type="number" is="emby-input" min="0" />
-                    </div>
-
-                    <div class="inputContainer">
-                        <label class="inputLabel inputLabelUnfocused" for="DefaultTitle">Default title</label>
-                        <input id="DefaultTitle" name="DefaultTitle" type="text" is="emby-input" />
                     </div>
 
                     <div>
@@ -44,9 +44,9 @@
             document.querySelector('#JellyTweaksPage').addEventListener('pageshow', function () {
                 Dashboard.showLoadingMsg();
                 ApiClient.getPluginConfiguration(JellyTweaksConfig.pluginUniqueId).then(function (config) {
+                    document.querySelector('#DefaultTitle').value = config.DefaultTitle;
                     document.querySelector('#EnableBackdropsByDefault').checked = config.EnableBackdropsByDefault;
                     document.querySelector('#DefaultLibraryPageSize').value = config.DefaultLibraryPageSize;
-                    document.querySelector('#DefaultTitle').value = config.DefaultTitle;
                     Dashboard.hideLoadingMsg();
                 });
             });
@@ -54,9 +54,9 @@
             document.querySelector('#JellyTweaksForm').addEventListener('submit', function (e) {
                 Dashboard.showLoadingMsg();
                 ApiClient.getPluginConfiguration(JellyTweaksConfig.pluginUniqueId).then(function (config) {
+                    config.DefaultTitle = document.querySelector('#DefaultTitle').value;
                     config.EnableBackdropsByDefault = document.querySelector('#EnableBackdropsByDefault').checked;
                     config.DefaultLibraryPageSize = document.querySelector('#DefaultLibraryPageSize').value;
-                    config.DefaultTitle = document.querySelector('#DefaultTitle').value;
 
                     ApiClient.updatePluginConfiguration(JellyTweaksConfig.pluginUniqueId, config).then(function (result) {
                         Dashboard.processPluginConfigurationUpdateResult(result);
