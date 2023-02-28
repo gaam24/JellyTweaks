@@ -13,17 +13,6 @@ namespace Jellyfin.Plugin.JellyTweaks.ScheduledTasks
 {
     public class ApplyTweaks : IScheduledTask
     {
-        private readonly ILoggerFactory _loggerFactory;
-        private readonly ILocalizationManager _localization;
-
-        public ApplyTweaks(
-            ILoggerFactory loggerFactory,
-            ILocalizationManager localization)
-        {
-            _loggerFactory = loggerFactory;
-            _localization = localization;
-        }
-
         /// <inheritdoc />
         public string Name => "Apply Tweaks";
 
@@ -35,6 +24,15 @@ namespace Jellyfin.Plugin.JellyTweaks.ScheduledTasks
 
         /// <inheritdoc />
         public string Category => _localization.GetLocalizedString("TasksLibraryCategory");
+
+        private readonly ILoggerFactory _loggerFactory;
+        private readonly ILocalizationManager _localization;
+
+        public ApplyTweaks(ILoggerFactory loggerFactory, ILocalizationManager localization)
+        {
+            _loggerFactory = loggerFactory;
+            _localization = localization;
+        }
 
         public async Task ExecuteAsync(IProgress<double> progress, CancellationToken cancellationToken)
         {

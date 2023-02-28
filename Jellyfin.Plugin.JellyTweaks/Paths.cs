@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Logging;
-
 namespace Jellyfin.Plugin.JellyTweaks
 {
     public static class Paths
