@@ -16,10 +16,6 @@ jobs:
       with:
         fetch-depth: 0
     
-    - name: Variables
-      id: variables
-      run: echo ::set-output name=version::$(git describe --tags --always)
-    
     - name: Install .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -31,16 +27,8 @@ jobs:
     - name: Build
       run: dotnet build --configuration release
     
-    - name: Move
-      run: mv Jellyfin.Plugin.JellyTweaks/bin/*/*/Jellyfin.Plugin.JellyTweaks.dll .
-    
-    - name: Compress
-      env:
-        version: ${{ steps.variables.outputs.version }}
-      run: zip Jellyfin.Plugin.JellyTweaks.zip *.dll
-    
     - name: Upload
       uses: actions/upload-artifact@v3.1.2
       with:
-        artifacts: 'JellyTweaks'
-        path: Jellyfin.Plugin.JellyTweaks.zip
+        artifacts: Jellyfin.Plugin.JellyTweaks
+        path: Jellyfin.Plugin.JellyTweaks/bin/*/*/Jellyfin.Plugin.JellyTweaks.dll
