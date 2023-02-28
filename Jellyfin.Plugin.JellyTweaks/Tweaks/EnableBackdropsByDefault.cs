@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Jellyfin.Plugin.JellyTweaks.Tweaks
 {
-    public class BackdropsByDefault : Tweak
+    public class EnableBackdropsByDefault : Tweak
     {
         private readonly ILogger<Tweak> _logger;
 
@@ -17,7 +17,7 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks
             new Searching(Paths.MainJS!, "enableBackdrops:function(){return ", "}")
         };
 
-        public BackdropsByDefault(ILogger<Tweak> logger) : base(name, searching)
+        public EnableBackdropsByDefault(ILogger<Tweak> logger) : base(name, searching)
         {
             _logger = logger;
         }

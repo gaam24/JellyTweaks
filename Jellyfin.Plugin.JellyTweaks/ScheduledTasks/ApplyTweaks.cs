@@ -39,7 +39,7 @@ namespace Jellyfin.Plugin.JellyTweaks.ScheduledTasks
             ILogger<Tweak> logger = _loggerFactory.CreateLogger<Tweak>();
             PluginConfiguration config = JellyTweaks.Instance!.Configuration;
 
-            await new BackdropsByDefault(logger).Execute(config).ConfigureAwait(false);
+            await new EnableBackdropsByDefault(logger).Execute(config).ConfigureAwait(false);
             await new DefaultMaxPage(logger).Execute(config).ConfigureAwait(false);
             await new DefaultTitle(logger).Execute(config).ConfigureAwait(false);
 
