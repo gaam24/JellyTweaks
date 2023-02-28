@@ -22,9 +22,9 @@ public class JellyTweaks : BasePlugin<PluginConfiguration>, IHasWebPages
     /// <summary>
     /// Initializes a new instance of the <see cref="JellyTweaks"/> class.
     /// </summary>
-    /// <param name="applicationPaths">Instance of the <see cref="IApplicationPaths"/> interface.</param>
-    /// <param name="logger">Instance of the <see cref="ILogger"/> interface.</param>
-    /// <param name="xmlSerializer">Instance of the <see cref="IXmlSerializer"/> interface.</param>
+    /// <param _name="applicationPaths">Instance of the <see cref="IApplicationPaths"/> interface.</param>
+    /// <param _name="logger">Instance of the <see cref="ILogger"/> interface.</param>
+    /// <param _name="xmlSerializer">Instance of the <see cref="IXmlSerializer"/> interface.</param>
     public JellyTweaks(IApplicationPaths applicationPaths, ILogger<JellyTweaks> logger, IXmlSerializer xmlSerializer) : base(applicationPaths, xmlSerializer)
     {
         Instance = this;

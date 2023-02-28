@@ -11,13 +11,15 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks
     {
         private readonly ILogger<Tweak> _logger;
 
-        private static string name = "EnableBackdropsByDefault";
-        private static Collection<Searching> searching = new Collection<Searching>()
+        private readonly static string _name = "EnableBackdropsByDefault";
+        private readonly static Collection<TweakFile> _files = new Collection<TweakFile>()
         {
-            new Searching(Paths.MainJS!, "enableBackdrops:function(){return ", "}")
+            new TweakFile(Paths.MainJS!, new Collection<TweakSearching>() {
+                new TweakSearching("enableBackdrops:function(){return ", "}")
+            })
         };
 
-        public EnableBackdropsByDefault(ILogger<Tweak> logger) : base(name, searching)
+        public EnableBackdropsByDefault(ILogger<Tweak> logger) : base(_name, _files)
         {
             _logger = logger;
         }
@@ -25,7 +27,7 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks
         public override async Task Execute(PluginConfiguration configuration)
         {
             var value = configuration.EnableBackdropsByDefault ? "_" : "P";
-            await FileUtils.ChangeInLine(_logger, this, value).ConfigureAwait(false);
+            await TweakUtils.ApplyTweakAsync(_logger, this, value).ConfigureAwait(false);
         }
     }
 }

@@ -9,12 +9,12 @@ namespace Jellyfin.Plugin.JellyTweaks.Data
     {
         public string Name { get; }
 
-        public Collection<Searching> RangeList { get; }
+        public Collection<TweakFile> Files { get; }
 
-        public Tweak(string name, Collection<Searching> rangeList)
+        public Tweak(string name, Collection<TweakFile> files)
         {
             Name = name;
-            RangeList = rangeList;
+            Files = files;
         }
 
         public virtual async Task Execute(PluginConfiguration configuration) => throw new NotImplementedException();
