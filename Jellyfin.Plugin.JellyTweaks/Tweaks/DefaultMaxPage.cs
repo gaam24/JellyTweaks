@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -27,13 +28,7 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks
 
         public override async Task Execute(PluginConfiguration configuration)
         {
-            // Number cannot be negative
-            if (configuration.DefaultLibraryPageSize < 0)
-            {
-                configuration.DefaultLibraryPageSize = 0;
-            }
-
-            string value = configuration.DefaultLibraryPageSize.ToString(new CultureInfo("en-us"));
+            string value = Math.Abs(configuration.DefaultLibraryPageSize).ToString(new CultureInfo("en-us"));
             await TweakUtils.ApplyTweakAsync(_logger, this, value).ConfigureAwait(false);
         }
     }
