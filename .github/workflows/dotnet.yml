@@ -42,5 +42,5 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3.1.2
       with:
-        artifacts: 'test'
-        path: Jellyfin.Plugin.JellyTweaks/bin/*/*/*.zip
+        artifacts: 'JellyTweaks'
+        path: Jellyfin.Plugin.JellyTweaks/bin/*/*/Jellyfin.Plugin.JellyTweaks.zip
