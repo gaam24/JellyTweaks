@@ -12,14 +12,16 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks
     {
         private readonly ILogger<Tweak> _logger;
 
-        private readonly static string _name = "DefaultTitle";
-        private readonly static Collection<TweakFile> _files = new Collection<TweakFile>()
+        private static readonly string _name = "DefaultTitle";
+        private static readonly Collection<TweakFile> _files = new()
         {
-            new TweakFile(Paths.MainJS!, new Collection<TweakSearching>() {
+            new TweakFile(Paths.MainJS!, new Collection<TweakSearching>()
+            {
                 new TweakSearching("document.title=e||\"", "\"}"),
                 new TweakSearching("document.title=\"", "\"}")
             }),
-            new TweakFile(Paths.IndexHTML!, new Collection<TweakSearching>() {
+            new TweakFile(Paths.IndexHTML!, new Collection<TweakSearching>()
+            {
                 new TweakSearching("<title>", "</title>"),
                 new TweakSearching("<meta property=\"og:title\" content=\"", "\">"),
                 new TweakSearching("<meta property=\"og:site_name\" content=\"", "\">"),

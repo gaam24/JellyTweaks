@@ -13,10 +13,11 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks
     {
         private readonly ILogger<Tweak> _logger;
 
-        private readonly static string _name = "DefaultLibraryPageSize";
-        private readonly static Collection<TweakFile> _files = new Collection<TweakFile>()
+        private static readonly string _name = "DefaultLibraryPageSize";
+        private static readonly Collection<TweakFile> _files = new()
         {
-            new TweakFile(Paths.MainJS!, new Collection<TweakSearching>() {
+            new TweakFile(Paths.MainJS!, new Collection<TweakSearching>()
+            {
                 new TweakSearching("this.get(\"libraryPageSize\",!1),10);return 0===t?0:t||", "}")
             })
         };

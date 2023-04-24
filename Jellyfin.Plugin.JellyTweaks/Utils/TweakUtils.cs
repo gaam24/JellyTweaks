@@ -33,14 +33,14 @@ namespace Jellyfin.Plugin.JellyTweaks.Utils
                             int endIndex = content.IndexOf(end, startIndex, StringComparison.Ordinal);
                             string result = content.Substring(startIndex + start.Length, endIndex - startIndex - start.Length);
 
-                            string original = start + result + end;
-                            string changed = start + value + end;
+                            string original = $"{start}{result}{end}";
+                            string changed = $"{start}{value}{end}";
 
                             content = content.Replace(original, changed, StringComparison.Ordinal);
                         }
                         catch (ArgumentOutOfRangeException ex)
                         {
-                            logger.LogError("Cannot find values '{0}xxx{1}'! | Error: {2}", start, end, ex.Message);
+                            logger.LogError($"Cannot find values '{start}xxx{end}'! | Error: {ex.Message}");
                         }
                     }
 
@@ -54,25 +54,25 @@ namespace Jellyfin.Plugin.JellyTweaks.Utils
                         }
                         catch (Exception ex)
                         {
-                            logger.LogError("Encountered exception while applying tweak {0}: {1}", tweak.Name, ex);
+                            logger.LogError($"Encountered exception while applying tweak {tweak.Name}: {ex}");
                             return;
                         }
                     }
                 }
                 else
                 {
-                    logger.LogError("Canno't find path {0} for apply {0}!", path, tweak.Name);
+                    logger.LogError($"Cannot find path {path} for apply {tweak.Name}!");
                     return;
                 }
             }
 
             if (isChanged)
             {
-                logger.LogInformation("Finished applying tweak: {0}!", tweak.Name);
+                logger.LogInformation($"Finished applying tweak: {tweak.Name}!");
             }
             else
             {
-                logger.LogInformation("Tweak {0} no need to apply!", tweak.Name);
+                logger.LogInformation($"Tweak {tweak.Name} no need to apply!");
             }
         }
     }
