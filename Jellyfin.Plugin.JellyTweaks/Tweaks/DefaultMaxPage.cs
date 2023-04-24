@@ -28,7 +28,7 @@ namespace Jellyfin.Plugin.JellyTweaks.Tweaks
 
         public override async Task Execute(PluginConfiguration configuration)
         {
-            string value = Math.Abs(configuration.DefaultLibraryPageSize).ToString(new CultureInfo("en-us"));
+            string value = Math.Abs(configuration.DefaultLibraryPageSize).ToString(CultureInfo.InvariantCulture);
             await TweakUtils.ApplyTweakAsync(_logger, this, value).ConfigureAwait(false);
         }
     }
