@@ -8,6 +8,14 @@
         "category": "General",
         "versions": [
             {
+                "checksum": "86ef8de6beaa3486c63edaac36eeec08",
+                "changelog": " - Fix CultureInfo",
+                "targetAbi": "10.8.9.0",
+                "sourceUrl": "https://github.com/gaam24/JellyTweaks/releases/download/1.0.0.2/Jellyfin.Plugin.JellyTweaks.zip",
+                "timestamp": "2023-04-24T00:00:00Z",
+                "version": "1.0.0.2"
+            },
+            {
                 "checksum": "ac7206b63ee2ca9361c765ce15226800",
                 "changelog": " - Rebuilded tweak searching (now using all tweaks for one file saving the file only once)\n - Added descriptions in options\n - Small code cleanup",
                 "targetAbi": "10.8.9.0",
