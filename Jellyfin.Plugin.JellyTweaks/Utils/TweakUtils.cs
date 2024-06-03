@@ -1,79 +1,73 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using Jellyfin.Plugin.JellyTweaks.Data;
 using Microsoft.Extensions.Logging;
 
-namespace Jellyfin.Plugin.JellyTweaks.Utils
+namespace Jellyfin.Plugin.JellyTweaks.Utils;
+
+public static class TweakUtils
 {
-    public static class TweakUtils
+    public static async Task ApplyTweakAsync(ILogger logger, Tweak tweak, string value)
     {
-        public static async Task ApplyTweakAsync(ILogger logger, Tweak tweak, string value)
+        var isChanged = false;
+
+        foreach (var file in tweak.Files)
         {
-            bool isChanged = false;
-
-            foreach (TweakFile file in tweak.Files)
+            var path = file.Path;
+            if (!File.Exists(path))
             {
-                string path = file.Path;
-                if (File.Exists(path))
+                logger.LogError($"Cannot find path {path} for apply {tweak.Name}!");
+                return;
+            }
+
+            var originalContent = await File.ReadAllTextAsync(path);
+            var content = originalContent;
+
+            // Find and change values
+            foreach (var values in file.SearchingValues)
+            {
+                var start = values.Start;
+                var end = values.End;
+
+                try
                 {
-                    string originalContent = await File.ReadAllTextAsync(path);
-                    string content = await File.ReadAllTextAsync(path);
+                    var startIndex = content.IndexOf(start, StringComparison.Ordinal);
+                    var endIndex = content.IndexOf(end, startIndex, StringComparison.Ordinal);
 
-                    // Find and change values
-                    foreach (TweakSearching values in file.SearchingValues)
+                    if (startIndex == -1 || endIndex == -1)
                     {
-                        string start = values.Start;
-                        string end = values.End;
-
-                        // Try to find values
-                        try
-                        {
-                            int startIndex = content.IndexOf(start, StringComparison.Ordinal);
-                            int endIndex = content.IndexOf(end, startIndex, StringComparison.Ordinal);
-                            string result = content.Substring(startIndex + start.Length, endIndex - startIndex - start.Length);
-
-                            string original = $"{start}{result}{end}";
-                            string changed = $"{start}{value}{end}";
-
-                            content = content.Replace(original, changed, StringComparison.Ordinal);
-                        }
-                        catch (ArgumentOutOfRangeException ex)
-                        {
-                            logger.LogError($"Cannot find values '{start}xxx{end}'! | Error: {ex.Message}");
-                        }
+                        logger.LogError($"Cannot find values '{start}xxx{end}'!");
+                        continue;
                     }
 
-                    // If there's any changes, trying to save them to file
-                    if (!originalContent.Equals(content, StringComparison.Ordinal))
-                    {
-                        try
-                        {
-                            await File.WriteAllTextAsync(path, content).ConfigureAwait(false);
-                            isChanged = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.LogError($"Encountered exception while applying tweak {tweak.Name}: {ex}");
-                            return;
-                        }
-                    }
+                    var original = content.Substring(startIndex, endIndex + end.Length - startIndex);
+                    var changed = $"{start}{value}{end}";
+
+                    content = content.Replace(original, changed, StringComparison.Ordinal);
                 }
-                else
+                catch (ArgumentOutOfRangeException ex)
                 {
-                    logger.LogError($"Cannot find path {path} for apply {tweak.Name}!");
-                    return;
+                    logger.LogError($"Cannot find values '{start}xxx{end}'! | Error: {ex.Message}");
                 }
             }
 
-            if (isChanged)
+            // Continue if no modifications
+            if (originalContent.Equals(content, StringComparison.Ordinal))
             {
-                logger.LogInformation($"Finished applying tweak: {tweak.Name}!");
+                continue;
             }
-            else
+
+            // Save changes to file
+            try
             {
-                logger.LogInformation($"Tweak {tweak.Name} no need to apply!");
+                await File.WriteAllTextAsync(path, content).ConfigureAwait(false);
+                isChanged = true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Encountered exception while applying tweak {tweak.Name}: {ex}");
+                return;
             }
         }
+
+        logger.LogInformation(isChanged ? $"Finished applying tweak: {tweak.Name}!" : $"Tweak {tweak.Name} no need to apply!");
     }
 }

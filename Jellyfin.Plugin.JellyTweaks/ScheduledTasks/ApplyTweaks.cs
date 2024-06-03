@@ -1,60 +1,51 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Jellyfin.Plugin.JellyTweaks.Configuration;
 using Jellyfin.Plugin.JellyTweaks.Data;
 using Jellyfin.Plugin.JellyTweaks.Tweaks;
 using MediaBrowser.Model.Globalization;
 using MediaBrowser.Model.Tasks;
 using Microsoft.Extensions.Logging;
 
-namespace Jellyfin.Plugin.JellyTweaks.ScheduledTasks
+namespace Jellyfin.Plugin.JellyTweaks.ScheduledTasks;
+
+public class ApplyTweaks(ILoggerFactory loggerFactory, ILocalizationManager localization) : IScheduledTask
 {
-    public class ApplyTweaks : IScheduledTask
+    /// <inheritdoc />
+    public string Name => "Apply Tweaks";
+
+    /// <inheritdoc />
+    public string Key => "ApplyTweaks";
+
+    /// <inheritdoc />
+    public string Description => "Apply tweaks enabled in settings.";
+
+    /// <inheritdoc />
+    public string Category => localization.GetLocalizedString("TasksLibraryCategory");
+
+    public async Task ExecuteAsync(IProgress<double> progress, CancellationToken cancellationToken)
     {
-        /// <inheritdoc />
-        public string Name => "Apply Tweaks";
+        var logger = loggerFactory.CreateLogger<Tweak>();
+        var config = JellyTweaks.Instance!.Configuration;
 
-        /// <inheritdoc />
-        public string Key => "ApplyTweaks";
-
-        /// <inheritdoc />
-        public string Description => "Apply tweaks enabled in settings.";
-
-        /// <inheritdoc />
-        public string Category => _localization.GetLocalizedString("TasksLibraryCategory");
-
-        private readonly ILoggerFactory _loggerFactory;
-        private readonly ILocalizationManager _localization;
-
-        public ApplyTweaks(ILoggerFactory loggerFactory, ILocalizationManager localization)
+        if (config == null)
         {
-            _loggerFactory = loggerFactory;
-            _localization = localization;
+            throw new InvalidOperationException("Configuration cannot be null");
         }
 
-        public async Task ExecuteAsync(IProgress<double> progress, CancellationToken cancellationToken)
+        var tasks = new List<Task>
         {
-            ILogger<Tweak> logger = _loggerFactory.CreateLogger<Tweak>();
-            PluginConfiguration config = JellyTweaks.Instance!.Configuration;
+            new EnableBackdropsByDefault(logger).Execute(config),
+            new DefaultMaxPage(logger).Execute(config),
+            new DefaultTitle(logger).Execute(config)
+        };
 
-            await new EnableBackdropsByDefault(logger).Execute(config).ConfigureAwait(false);
-            await new DefaultMaxPage(logger).Execute(config).ConfigureAwait(false);
-            await new DefaultTitle(logger).Execute(config).ConfigureAwait(false);
+        await Task.WhenAll(tasks).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+    }
 
-            cancellationToken.ThrowIfCancellationRequested();
-        }
-
-        public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
-        {
-            return new[]
-            {
-                new TaskTriggerInfo
-                {
-                    Type = TaskTriggerInfo.TriggerStartup
-                }
-            };
-        }
+    public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
+    {
+        return
+        [
+            new TaskTriggerInfo { Type = TaskTriggerInfo.TriggerStartup }
+        ];
     }
 }

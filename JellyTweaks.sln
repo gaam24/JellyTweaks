@@ -4,20 +4,6 @@ VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jellyfin.Plugin.JellyTweaks", "Jellyfin.Plugin.JellyTweaks\Jellyfin.Plugin.JellyTweaks.csproj", "{D921B930-CF91-406F-ACBC-08914DCD0D34}"
 EndProject
-Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "jellyfin", "E:\Download\net\jellyfin_10.8.9\jellyfin_10.8.9\jellyfin.exe", "{CA66CB25-C960-436F-B471-0B622718070A}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = E:\Download\net\jellyfin_10.8.9\jellyfin_10.8.9\jellyfin.exe
-		RemoteMachine = PC-GAM24
-		StartingDirectory = E:\Download\net\jellyfin_10.8.9\jellyfin_10.8.9
-		Environment = Default
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		UseLegacyDebugEngines = No
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
-		IORedirection = Auto
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +20,6 @@ Global
 		{D921B930-CF91-406F-ACBC-08914DCD0D34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D921B930-CF91-406F-ACBC-08914DCD0D34}.Release|x64.ActiveCfg = Release|Any CPU
 		{D921B930-CF91-406F-ACBC-08914DCD0D34}.Release|x64.Build.0 = Release|Any CPU
-		{CA66CB25-C960-436F-B471-0B622718070A}.Debug|Any CPU.ActiveCfg = Release|x64
-		{CA66CB25-C960-436F-B471-0B622718070A}.Debug|x64.ActiveCfg = Release|x64
-		{CA66CB25-C960-436F-B471-0B622718070A}.Release|Any CPU.ActiveCfg = Release|x64
-		{CA66CB25-C960-436F-B471-0B622718070A}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

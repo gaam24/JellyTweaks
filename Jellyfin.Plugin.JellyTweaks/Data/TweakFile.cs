@@ -1,17 +1,10 @@
 using System.Collections.ObjectModel;
 
-namespace Jellyfin.Plugin.JellyTweaks.Data
+namespace Jellyfin.Plugin.JellyTweaks.Data;
+
+public class TweakFile(string path, Collection<TweakSearching> searchingValues)
 {
-    public class TweakFile
-    {
-        public string Path { get; }
+    public string Path { get; } = path;
 
-        public Collection<TweakSearching> SearchingValues { get; }
-
-        public TweakFile(string path, Collection<TweakSearching> searchingValues)
-        {
-            Path = path;
-            SearchingValues = searchingValues;
-        }
-    }
+    public Collection<TweakSearching> SearchingValues { get; } = searchingValues;
 }
