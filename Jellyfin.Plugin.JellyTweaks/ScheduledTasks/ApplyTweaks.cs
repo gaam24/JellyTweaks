@@ -30,14 +30,10 @@ public class ApplyTweaks(ILoggerFactory loggerFactory, ILocalizationManager loca
             throw new InvalidOperationException("Configuration cannot be null");
         }
 
-        var tasks = new List<Task>
-        {
-            new EnableBackdropsByDefault(logger).Execute(config),
-            new DefaultMaxPage(logger).Execute(config),
-            new DefaultTitle(logger).Execute(config)
-        };
+        await new EnableBackdropsByDefault(logger).Execute(config);
+        await new DefaultMaxPage(logger).Execute(config);
+        await new DefaultTitle(logger).Execute(config);
 
-        await Task.WhenAll(tasks).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
     }
 

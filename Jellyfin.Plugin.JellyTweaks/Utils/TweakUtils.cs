@@ -38,7 +38,7 @@ public static class TweakUtils
                         continue;
                     }
 
-                    var original = content.Substring(startIndex, endIndex + end.Length - startIndex);
+                    var original = content[startIndex..(endIndex + end.Length)];
                     var changed = $"{start}{value}{end}";
 
                     content = content.Replace(original, changed, StringComparison.Ordinal);
