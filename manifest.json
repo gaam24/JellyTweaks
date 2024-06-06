@@ -8,6 +8,14 @@
         "category": "General",
         "versions": [
             {
+                "checksum": "025fee84c36e0146ed8c8c59c93e933f",
+                "changelog": "- Fixed bug with apply tweeks",
+                "targetAbi": "10.9.4.0",
+                "sourceUrl": "https://github.com/gaam24/JellyTweaks/releases/download/1.0.0.4/Jellyfin.Plugin.JellyTweaks.zip",
+                "timestamp": "2024-06-07T00:00:00Z",
+                "version": "1.0.0.4"
+            },
+            {
                 "checksum": "5fb9f1715d69a2061d84fde2e2a12c42",
                 "changelog": " - Fixed enableBackdrops by default\n - Update to .NET 8.0\n - Code cleanup",
                 "targetAbi": "10.9.4.0",
